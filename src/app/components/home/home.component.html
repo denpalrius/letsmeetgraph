@@ -1,0 +1,17 @@
+<app-top-bar></app-top-bar>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Calendar Invites">
+    <ng-template matTabContent>
+      <div class="content">
+        <app-events></app-events>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Meeting Notes">
+    <ng-template matTabContent>
+      <div class="content">
+        <app-meetings></app-meetings>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

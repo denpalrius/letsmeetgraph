@@ -41,7 +41,7 @@ export class AuthService extends BaseService {
         .then(
           () => {
             this.zone.run(() => {
-              this.router.navigate(['/calendar']);
+              this.router.navigate(['/home']);
             });
           },
           e => console.error(e),

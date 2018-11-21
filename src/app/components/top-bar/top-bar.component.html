@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>Let's Meet</span>
+    <span class="fill-remaining-space"></span>
+  
+    <div class="profile-section">
+      <span>{{loggedInUser?.userPrincipalName}}</span>
+      <img [matMenuTriggerFor]="menu" class="prof-pic" src="https://avatars1.githubusercontent.com/u/2971971?s=80&v=4" />
+    </div>
+  
+    <mat-menu #menu="matMenu">
+      <button routerLink="" mat-menu-item>
+        <mat-icon>person_outline</mat-icon>
+        <span>View Profile</span>
+      </button>
+      <button (click)="logOut()" mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Sign out</span>
+      </button>
+    </mat-menu>
+  
+  </mat-toolbar>
+  

@@ -14,9 +14,13 @@ import { ConfigService } from './services/config.service';
 import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { BaseService } from './services/base.service';
+import { HomeComponent } from './components/home/home.component';
+import { MeetingsComponent } from './components/meetings/meetings.component';
+import { EventsComponent } from './components/events/events.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, LoginComponent],
+  declarations: [AppComponent, MainLayoutComponent, LoginComponent, HomeComponent, MeetingsComponent, EventsComponent, TopBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

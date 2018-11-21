@@ -27,6 +27,7 @@ export class GraphService extends BaseService {
   getUserDetails(): Observable<MicrosoftGraph.User> {
     const graphUser = this.client
       .api('me')
+      .version('v1.0')
       .get()
       .then(res => {
         console.log('user:', res);
@@ -42,14 +43,66 @@ export class GraphService extends BaseService {
   sendEmail(mail: MicrosoftGraph.Message): Observable<MicrosoftGraph.Message> {
     const mails = this.client
       .api('me/sendmail')
+      .version('v1.0')
       .post({ message: mail })
-      .then(res => {
-        console.log('sending emails:', res);
-        return res;
-      });
+      .then(res => res);
 
     return from(mails).pipe(
-      map((user: MicrosoftGraph.Message) => user),
+      map((message: MicrosoftGraph.Message) => message),
+      catchError(this.catchError),
+    );
+  }
+
+  createEvent(
+    newEvent: MicrosoftGraph.Event,
+  ): Observable<MicrosoftGraph.Event> {
+    const eventRequest = this.client
+      .api('me/events')
+      .version('v1.0')
+      .post(newEvent)
+      .then(res => res);
+
+    return from(eventRequest).pipe(
+      map((event: MicrosoftGraph.Event) => event),
+      catchError(this.catchError),
+    );
+  }
+
+  allEventsInCalendar(): Observable<MicrosoftGraph.Event[]> {
+    const eventRequest = this.client
+      .api('me/events')
+      .version('v1.0')
+      .select('subject,body,bodyPreview,organizer,attendees,location')
+      .get();
+
+    return from(eventRequest).pipe(
+      map((events: MicrosoftGraph.Event[]) => events),
+      catchError(this.catchError),
+    );
+  }
+
+  allNotebooks(): Observable<MicrosoftGraph.Notebook[]> {
+    const allNotebooksRequest = this.client
+      .api('me/onenote/notebooks')
+      .version('v1.0')
+      .get();
+
+    return from(allNotebooksRequest).pipe(
+      map((notebooks: MicrosoftGraph.Notebook[]) => notebooks),
+      catchError(this.catchError),
+    );
+  }
+
+  createNotebook(
+    newNotebook: MicrosoftGraph.Notebook,
+  ): Observable<MicrosoftGraph.Notebook> {
+    const notebookRequest = this.client
+      .api('me/onenote/notebooks')
+      .version('v1.0')
+      .post(newNotebook);
+
+    return from(notebookRequest).pipe(
+      map((notebook: MicrosoftGraph.Notebook) => notebook),
       catchError(this.catchError),
     );
   }

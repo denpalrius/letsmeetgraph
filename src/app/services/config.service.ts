@@ -16,7 +16,7 @@ export class ConfigService {
   }
 
   get scope() {
-    return 'User.Read Mail.Send';
+    return 'Calendars.ReadWrite Notes.ReadWrite Mail.Send User.Read';
   }
 
   get authUrl() {

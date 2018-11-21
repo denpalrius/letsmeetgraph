@@ -1,0 +1,32 @@
+.full-size-content {
+    margin: 32px 32px;
+    height: calc(100% - 179px)
+  }
+  
+  .mobile-content {
+    margin: 0px;
+    height: calc(100% - 97px);
+  }
+  
+  .rounded {
+    border-radius: 50%;
+  
+  }
+  
+  .prof-pic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    
+  }
+  
+  .profile-section{
+    cursor: pointer;
+  }
+  
+  .fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+         Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+  
