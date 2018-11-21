@@ -7,7 +7,6 @@ export class ConfigService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer GfR6vIHG0zTWaJle6TjNXvYUrjDn6g',
       }),
     };
   }

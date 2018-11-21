@@ -13,6 +13,7 @@ import { GraphService } from './services/graph.service';
 import { ConfigService } from './services/config.service';
 import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { BaseService } from './services/base.service';
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, LoginComponent],
@@ -25,7 +26,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
     LayoutModule,
     SharedModule.forRoot(),
   ],
-  providers: [ConfigService, AuthService, GraphService],
+  providers: [BaseService, ConfigService, AuthService, GraphService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

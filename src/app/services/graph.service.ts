@@ -4,7 +4,7 @@ import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
 import * as MicrosoftGraphClient from '@microsoft/microsoft-graph-client';
 import { AuthService } from './auth.service';
 import { catchError, map } from 'rxjs/operators';
-import { BaseService } from './base-service';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class GraphService extends BaseService {
@@ -27,7 +27,6 @@ export class GraphService extends BaseService {
   getUserDetails(): Observable<MicrosoftGraph.User> {
     const graphUser = this.client
       .api('me')
-      .select('displayName, mail, userPrincipalName')
       .get()
       .then(res => {
         console.log('user:', res);

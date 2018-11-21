@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import * as hello from 'hellojs/dist/hello.all.js';
-import { BaseService } from './base-service';
+import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
 
 @Injectable()
@@ -12,6 +12,8 @@ export class AuthService extends BaseService {
     private configs: ConfigService,
   ) {
     super();
+
+    this.initAuth();
   }
 
   initAuth() {
@@ -28,20 +30,23 @@ export class AuthService extends BaseService {
         },
       },
       { redirect_uri: window.location.href },
+      // { redirect_uri: `http://localhost:4200/calendar/` },
     );
   }
 
   login() {
-    hello('msft')
-      .login({ scope: this.configs.scope })
-      .then(
-        () => {
-          this.zone.run(() => {
-            this.router.navigate(['/']);
-          });
-        },
-        e => console.error(e.error.message),
-      );
+    this.zone.runOutsideAngular(() => {
+      hello('msft')
+        .login({ scope: this.configs.scope })
+        .then(
+          () => {
+            this.zone.run(() => {
+              this.router.navigate(['/calendar']);
+            });
+          },
+          e => console.error(e),
+        );
+    });
   }
 
   logout() {

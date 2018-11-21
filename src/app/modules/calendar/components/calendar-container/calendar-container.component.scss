@@ -17,9 +17,12 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  cursor: pointer;
+  
 }
 
+.profile-section{
+  cursor: pointer;
+}
 
 .fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
