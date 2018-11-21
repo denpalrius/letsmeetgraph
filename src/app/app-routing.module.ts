@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'calendar' },
-
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   {
     path: 'calendar',
     loadChildren: './modules/calendar/calendar.module#CalendarModule',
   },
-
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

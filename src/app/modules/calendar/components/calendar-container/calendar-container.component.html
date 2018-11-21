@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <span>Let's Meet</span>
+  <span class="fill-remaining-space"></span>
+
+  <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    
+  <img [matMenuTriggerFor]="menu" class="prof-pic" src="https://avatars1.githubusercontent.com/u/2971971?s=80&v=4" />
+
+  <mat-menu #menu="matMenu">
+    <button routerLink="" mat-menu-item>
+      <mat-icon>person_outline</mat-icon>
+      <span>View Profile</span>
+    </button>
+    <button routerLink="/logout" mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sign out</span>
+    </button>
+  </mat-menu>
+
+</mat-toolbar>
+
+<!-- Calendar section content -->
+<mat-card class="content-height" [ngClass]="[(isHandset$ | async) ? 'mobile-content' : 'full-size-content' ]">
+  <router-outlet></router-outlet>
+</mat-card>
