@@ -113,23 +113,11 @@ export class EventsComponent implements OnInit {
       },
       start: {
         dateTime: moment().format(),
-        timeZone: 'Eastern Africa Time',
+        timeZone: 'Africa/Nairobi',
       },
       end: {
-        dateTime:  moment().format(),
-        timeZone: 'Eastern Africa Time',
-      },
-      recurrence: {
-        pattern: {
-          type: 'weekly',
-          interval: 1,
-          daysOfWeek: ['monday'],
-        },
-        range: {
-          type: 'endDate',
-          startDate: '2018-2-2',
-          endDate: '2019-12-31',
-        },
+        dateTime: moment().format(),
+        timeZone: 'Africa/Nairobi',
       },
       attendees: attendees,
       location: {
