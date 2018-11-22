@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from './modules/shared/shared.module';
+import { SharedModule } from './shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AuthService } from './services/auth.service';
@@ -20,7 +20,15 @@ import { EventsComponent } from './components/events/events.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, LoginComponent, HomeComponent, MeetingsComponent, EventsComponent, TopBarComponent],
+  declarations: [
+    AppComponent,
+    MainLayoutComponent,
+    LoginComponent,
+    HomeComponent,
+    MeetingsComponent,
+    EventsComponent,
+    TopBarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

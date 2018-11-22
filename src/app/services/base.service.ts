@@ -8,11 +8,11 @@ export class BaseService {
 
   catchError(error: any, snackBar: any): Observable<never> {
     console.log(error);
-    if (snackBar && error && error.message) {
-      snackBar.open(error.message, 'Ok', {
-        duration: 3000,
-      });
-    }
+    // if (snackBar && error && error.message) {
+    //   snackBar.open(error.message, 'Ok', {
+    //     duration: 3000,
+    //   });
+    // }
     return throwError(error);
   }
 }

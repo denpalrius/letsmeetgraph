@@ -8,10 +8,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  // {
-  //   path: 'home',
-  //   loadChildren: './modules/calendar/calendar.module#CalendarModule',
-  // },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
