@@ -57,6 +57,20 @@ export class EventsComponent implements OnInit {
     }
   }
 
+  onSubmitRecepient() {
+    if (this.newRecepientForm.valid) {
+      const recepientDetails = this.newRecepientForm.value;
+      if (this.recepients.indexOf(recepientDetails) > -1) {
+        this.recepients.push({
+          name: recepientDetails.name,
+          email: recepientDetails.email,
+        });
+
+        this.newRecepientForm.reset();
+      }
+    }
+  }
+
   onSubmit() {
     if (this.newEmailForm.valid) {
       const details: NewEvent = this.newEmailForm.value;
