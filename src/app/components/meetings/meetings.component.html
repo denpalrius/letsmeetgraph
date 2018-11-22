@@ -1,3 +1,53 @@
-<p>
-  meetings works!
-</p>
+<br> <br>
+
+<div fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div fxFlex="70">
+    <form [formGroup]="newNotebookForm" novalidate (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field class="field-margin">
+          <input matInput placeholder="Notebook Name" formControlName="notebook">
+        </mat-form-field>
+
+        <mat-form-field class="field-margin">
+          <input matInput placeholder="Section Name" formControlName="section">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="field-margin">
+          <input matInput placeholder="Page Title" formControlName="page">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <textarea matInput placeholder="Meeting notes" formControlName="content"></textarea>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Share Meeting Notes</button>
+    </form>
+
+  </div>
+
+  <div fxFlex="30">
+    <br>
+    <br>
+    <h4>All Your notebooks</h4>
+    <br>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let notebook of allNotebooks">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{notebook.displayName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{notebook.createdDateTime }} </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <span>created by:</span>
+        <span> {{notebook.createdBy.user.displayName}}</span>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

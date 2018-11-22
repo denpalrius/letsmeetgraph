@@ -18,7 +18,11 @@ export class TopBarComponent implements OnInit {
 
   ngOnInit() {
     this.graphService.getUserDetails().subscribe(user => {
-      this.loggedInUser = user;
+      if (user) {
+        this.loggedInUser = user;
+      } else {
+        this.logOut();
+      }
     });
   }
 
