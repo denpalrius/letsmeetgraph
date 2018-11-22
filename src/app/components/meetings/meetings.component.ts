@@ -128,7 +128,7 @@ export class MeetingsComponent implements OnInit {
       '    <p>:</p>' +
       '<a href="' +
       page.links.oneNoteClientUrl.href +
-      '"><strong>Open in you app</strong></a>' +
+      '"><strong>Open in you app</strong></a><br>' +
       '<a href="' +
       page.links.oneNoteWebUrl.href +
       '"><strong>Open in browser</strong></a>' +
