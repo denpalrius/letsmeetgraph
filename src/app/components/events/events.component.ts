@@ -18,6 +18,7 @@ export class EventsComponent implements OnInit {
   newEmailForm: FormGroup;
   newRecepientForm: FormGroup;
   recepients: { name: string; email: string }[];
+  eventLoading = false;
 
   constructor(
     private graphService: GraphService,
@@ -83,6 +84,8 @@ export class EventsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.eventLoading = true;
+
     if (this.newEmailForm.valid) {
       const details: NewEvent = this.newEmailForm.value;
       const event = this.constructEvent(
@@ -95,14 +98,17 @@ export class EventsComponent implements OnInit {
         if (res) {
           this.newEmailForm.reset();
           this.recepients = [];
+          this.eventLoading = false;
 
           this.showSnackBar(`Event: ${res.subject} was sent successfully`);
         } else {
           this.showSnackBar(`The event was not created :( `);
+          this.eventLoading = false;
         }
       });
     } else {
       this.newEmailForm.markAsDirty();
+      this.eventLoading = false;
     }
   }
 
