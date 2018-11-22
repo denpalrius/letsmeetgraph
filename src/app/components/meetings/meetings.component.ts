@@ -57,8 +57,6 @@ export class MeetingsComponent implements OnInit {
   }
 
   shareNotes(newMeetingNotes: NewNotebook) {
-    console.log(newMeetingNotes);
-
     this.graphService
       .createNotebook({
         displayName: `${newMeetingNotes.notebookName}`,
@@ -82,16 +80,95 @@ export class MeetingsComponent implements OnInit {
                   .subscribe(pageCreationResults => {
                     if (pageCreationResults) {
                       const message = `Meeting notes have been shared on this notebook: ${
-                        createdNotebook.displayName
+                        pageCreationResults.title
                       }`;
 
-                      this.showSnackBar(message);
+                      this.newNotebookForm.reset();
+
+                      this.sendEmails(pageCreationResults);
+                    } else {
+                      this.showSnackBar(
+                        `There was an error creating the notebook`,
+                      );
                     }
                   });
               }
             });
         }
       });
+  }
+
+  sendEmails(page: MicrosoftGraph.OnenotePage) {
+    // Add default attendees
+    const meetingAttendees = [
+      { name: 'Anna-Marie Silvester', email: 'v-annsil@microsoft.com' },
+      { name: 'Charles Wahome', email: 'v-chgita@microsoft.com' },
+      { name: 'Marvin Ochieng', email: 'v-edmarv@microsoft.com' },
+      { name: 'Duncan Okwako', email: 'v-duokwa@microsoft.com' },
+      { name: 'Denpal Mzitoh', email: 'denpalrius@gmail.com' },
+    ];
+
+    // const meetingAttendees = [
+    //   { name: 'Denpal Mzitoh', email: 'denpalrius@gmail.com' },
+    // ];
+
+    const emailContent =
+      '<!DOCTYPE html>' +
+      '<html>' +
+      '  <head>' +
+      '    <title>Meeting notes:' +
+      page.title +
+      '</title>' +
+      '    <meta name="created" content="' +
+      page.createdDateTime +
+      '" />' +
+      '  </head>' +
+      '  <body>' +
+      '    <p>You have received a Onenote from a meeting you attended recently</p>' +
+      '    <p>:</p>' +
+      '<a href="' +
+      page.links.oneNoteClientUrl.href +
+      '"><strong>Open in you app</strong></a>' +
+      '<a href="' +
+      page.links.oneNoteWebUrl.href +
+      '"><strong>Open in browser</strong></a>' +
+      '  </body>' +
+      '</html>';
+
+    const recepients = meetingAttendees.map(res => {
+      return {
+        emailAddress: {
+          address: res.email,
+          name: res.name,
+        },
+      };
+    });
+
+    const message: microsoftgraph.Message = {
+      subject: `Meeting Notes are now available`,
+      importance: `normal`,
+      body: {
+        contentType: 'html',
+        content: emailContent,
+      },
+      // from: {
+      //   emailAddress: {
+      //     name: 'Megan Betty',
+      //     address: 'meganb@M365B815254.onmicrosoft.com',
+      //   },
+      // },
+      toRecipients: recepients,
+    };
+
+    this.graphService.sendEmail(message).subscribe(sendResults => {
+      if (sendResults) {
+        const successMessage = `${
+          sendResults.subject
+        }: Meeting notes have been shared on email:`;
+
+        this.showSnackBar(successMessage);
+      }
+    });
   }
 
   showSnackBar(message: string) {

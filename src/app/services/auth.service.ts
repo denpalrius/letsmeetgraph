@@ -30,7 +30,6 @@ export class AuthService extends BaseService {
         },
       },
       { redirect_uri: window.location.href },
-      // { redirect_uri: `http://localhost:4200/calendar/` },
     );
   }
 

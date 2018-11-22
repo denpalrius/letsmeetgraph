@@ -7,7 +7,6 @@ import { catchError, map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class GraphService extends BaseService {
@@ -15,7 +14,6 @@ export class GraphService extends BaseService {
     private authService: AuthService,
     private readonly http: HttpClient,
     private readonly configs: ConfigService,
-    private readonly snackBar: MatSnackBar,
   ) {
     super();
   }
@@ -30,32 +28,6 @@ export class GraphService extends BaseService {
         done(null, this.authService.getAccessToken());
       },
     });
-  }
-
-  getUserDetails(): Observable<MicrosoftGraph.User> {
-    const graphUser = this.client
-      .api('me')
-      .version('v1.0')
-      .get()
-      .then(res => res);
-
-    return from(graphUser).pipe(
-      map((user: MicrosoftGraph.User) => user),
-      catchError(this.catchError),
-    );
-  }
-
-  sendEmail(mail: MicrosoftGraph.Message): Observable<MicrosoftGraph.Message> {
-    const mails = this.client
-      .api('me/sendmail')
-      .version('v1.0')
-      .post({ message: mail })
-      .then(res => res);
-
-    return from(mails).pipe(
-      map((message: MicrosoftGraph.Message) => message),
-      catchError(this.catchError),
-    );
   }
 
   createEvent(
@@ -130,39 +102,54 @@ export class GraphService extends BaseService {
     );
   }
 
+  // This page uses the normal HTTP get instead of the Graph cient
   createNotebookPage(
     sectionId: string,
     newPage: MicrosoftGraph.OnenotePage,
   ): Observable<MicrosoftGraph.OnenotePage> {
-    // const newPageRequest = this.client
-    //   .api(`me/onenote/sections/${sectionId}/pages`)
-    //   .version('v1.0')
-    //   .header('content-type', 'multipart/form-data')
-    //   .post(newPage.content);
-
-    // return from(newPageRequest).pipe(
-    //   map((page: MicrosoftGraph.OnenotePage) => page),
-    //   catchError(this.catchError),
-    // );
-
     return this.http
       .post<MicrosoftGraph.OnenotePage>(
         `${this.configs.graphRoot}/onenote/sections/${sectionId}/pages`,
         newPage,
         {
           headers: new HttpHeaders({
-            Accept: 'multipart/form-data',
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/html',
+            'Content-Disposition': 'form-data; name="Presentation"',
             Authorization: `Bearer ${this.authService.getAccessToken()}`,
           }),
         },
       )
       .pipe(
-        catchError(error => this.catchError(error, this.snackBar)),
+        catchError(catchError(this.catchError)),
         map((result: any) => {
-          console.log('page....', result);
           return result;
         }),
       );
+  }
+
+  getUserDetails(): Observable<MicrosoftGraph.User> {
+    const graphUser = this.client
+      .api('me')
+      .version('v1.0')
+      .get()
+      .then(res => res);
+
+    return from(graphUser).pipe(
+      map((user: MicrosoftGraph.User) => user),
+      catchError(this.catchError),
+    );
+  }
+
+  sendEmail(mail: MicrosoftGraph.Message): Observable<MicrosoftGraph.Message> {
+    const mails = this.client
+      .api('me/sendmail')
+      .version('v1.0')
+      .post({ message: mail })
+      .then(res => res);
+
+    return from(mails).pipe(
+      map((message: MicrosoftGraph.Message) => message),
+      catchError(this.catchError),
+    );
   }
 }

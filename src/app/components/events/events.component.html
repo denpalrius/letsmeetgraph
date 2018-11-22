@@ -16,7 +16,7 @@
 
     <br>
     <button type="submit" mat-raised-button color="primary" [disabled]="recepients?.length < 1 || !newEmailForm.valid">
-      Schedule Event
+      <span> Schedule Event</span>
     </button>
     <br>
   </form>
@@ -36,9 +36,9 @@
     <mat-form-field class="field-margin">
       <input matInput placeholder="Email" type="email" email="true" formControlName="email">
     </mat-form-field>
-   
-   <button type="button" mat-stroked-button color="primary" (click)="onSubmitRecepient()">
-      <mat-icon aria-label="New Activity">add</mat-icon>
+
+    <button type="button" mat-stroked-button color="primary" (click)="onSubmitRecepient()">
+      <mat-icon>add</mat-icon>
       <span>Add Recepient</span>
     </button>
 
@@ -47,11 +47,14 @@
 
   <mat-list>
     <mat-list-item *ngFor="let recepient of recepients">
-      <mat-icon>person_outline</mat-icon>
+      <mat-icon mat-list-icon>person_outline</mat-icon>
       <h3 matLine> {{recepient.name}} </h3>
       <p matLine>
         <span> {{recepient.email}} </span>
       </p>
+      <button (click)="removeRecepient(recepient)" mat-icon-button>
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </mat-list-item>
   </mat-list>
 </div>

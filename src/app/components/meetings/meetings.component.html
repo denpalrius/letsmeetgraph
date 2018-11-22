@@ -24,7 +24,10 @@
         </mat-form-field>
       </div>
 
-      <button mat-raised-button color="primary" type="submit">Share Meeting Notes</button>
+      <button mat-raised-button color="primary" type="submit">
+        Share Meeting Notes
+        <span> </span>
+      </button>
     </form>
 
   </div>
@@ -46,6 +49,16 @@
 
         <span>created by:</span>
         <span> {{notebook.createdBy.user.displayName}}</span>
+        <br>
+
+        <a [href]="notebook.links.oneNoteClientUrl.href">
+          <span>Open in App</span>
+        </a>
+        <br>
+
+        <a [href]="notebook.links.oneNoteWebUrl.href">
+          <span>Open in web:</span>
+        </a>
 
       </mat-expansion-panel>
     </mat-accordion>

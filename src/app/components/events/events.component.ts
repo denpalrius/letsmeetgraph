@@ -24,15 +24,12 @@ export class EventsComponent implements OnInit {
     private readonly snackBar: MatSnackBar,
     private readonly fb: FormBuilder,
   ) {
-    // this.recepients = [
-    //   { name: 'Anna-Marie Silvester', email: 'v-annsil@microsoft.com' },
-    //   { name: 'Charles Wahome', email: 'v-chgita@microsoft.com' },
-    //   { name: 'Marvin Ochieng', email: 'v-edmarv@microsoft.com' },
-    //   { name: 'Duncan Okwako', email: 'v-duokwa@microsoft.com' },
-    // ];
+    // Add default attendees
     this.recepients = [
-      { name: 'Dennor', email: 'denpalrius@gmail.com' },
-      { name: 'Mzitoh', email: 'riungu@quantumfig.com' },
+      { name: 'Anna-Marie Silvester', email: 'v-annsil@microsoft.com' },
+      { name: 'Charles Wahome', email: 'v-chgita@microsoft.com' },
+      { name: 'Marvin Ochieng', email: 'v-edmarv@microsoft.com' },
+      { name: 'Duncan Okwako', email: 'v-duokwa@microsoft.com' },
     ];
   }
 
@@ -58,6 +55,13 @@ export class EventsComponent implements OnInit {
   addRecepient(name: string, email: string) {
     if (this.newRecepientForm.valid) {
       this.recepients.push({ name: name, email: email });
+    }
+  }
+
+  removeRecepient(recepient) {
+    if (recepient) {
+      const indexOfRecepient = this.recepients.indexOf(recepient);
+      this.recepients.splice(indexOfRecepient, 1);
     }
   }
 
